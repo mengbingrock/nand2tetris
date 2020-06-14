@@ -1,0 +1,53 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/03/a/RAM8.hdl
+
+/**
+ * Memory of 8 registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load==1, then 
+ * the in value is loaded into the memory location specified by address 
+ * (the loaded value will be emitted to out from the next time step onward).
+ */
+
+CHIP RAM8 {
+    IN in[16], load, address[3];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=in[0],sel=address,a=R00,b=R10,c=R20,d=R30,e=R40,f=R50,g=R60,h=R70);
+    DMux8Way(in=in[1],sel=address,a=R01,b=R11,c=R21,d=R31,e=R41,f=R51,g=R61,h=R71);
+    DMux8Way(in=in[2],sel=address,a=R02,b=R12,c=R22,d=R32,e=R42,f=R52,g=R62,h=R72);
+    DMux8Way(in=in[3],sel=address,a=R03,b=R13,c=R23,d=R33,e=R43,f=R53,g=R63,h=R73);
+
+    DMux8Way(in=in[4],sel=address,a=R04,b=R14,c=R24,d=R34,e=R44,f=R54,g=R64,h=R74);
+    DMux8Way(in=in[5],sel=address,a=R05,b=R15,c=R25,d=R35,e=R45,f=R55,g=R65,h=R75);
+    DMux8Way(in=in[6],sel=address,a=R06,b=R16,c=R26,d=R36,e=R46,f=R56,g=R66,h=R76);
+    DMux8Way(in=in[7],sel=address,a=R07,b=R17,c=R27,d=R37,e=R47,f=R57,g=R67,h=R77);
+
+    DMux8Way(in=in[8],sel=address,a=R08,b=R18,c=R28,d=R38,e=R48,f=R58,g=R68,h=R78);
+    DMux8Way(in=in[9],sel=address,a=R09,b=R19,c=R29,d=R39,e=R49,f=R59,g=R69,h=R79);
+    DMux8Way(in=in[10],sel=address,a=R0a,b=R1a,c=R2a,d=R3a,e=R4a,f=R5a,g=R6a,h=R7a);
+    DMux8Way(in=in[11],sel=address,a=R0b,b=R1b,c=R2b,d=R3b,e=R4b,f=R5b,g=R6b,h=R7b);
+
+    DMux8Way(in=in[12],sel=address,a=R0c,b=R1c,c=R2c,d=R3c,e=R4c,f=R5c,g=R6c,h=R7c);
+    DMux8Way(in=in[13],sel=address,a=R0d,b=R1d,c=R2d,d=R3d,e=R4d,f=R5d,g=R6d,h=R7d);
+    DMux8Way(in=in[14],sel=address,a=R0e,b=R1e,c=R2e,d=R3e,e=R4e,f=R5e,g=R6e,h=R7e);
+    DMux8Way(in=in[15],sel=address,a=R0f,b=R1f,c=R2f,d=R3f,e=R4f,f=R5f,g=R6f,h=R7f);
+
+    DMux8Way(in=load,sel=address,a=l0,b=l1,c=l2,d=l3,e=l4,f=l5,g=l6,h=l7);
+    // Build the reg;
+    Register(in[0]=R00,in[1]=R01,in[2]=R02,in[3]=R03,in[4]=R04,in[5]=R05,in[6]=R06,in[7]=R07,in[8]=R08,in[9]=R09,in[10]=R0a,in[11]=R0b,in[12]=R0c,in[13]=R0d,in[14]=R0e,in[15]=R0f,load=l0,out=reg0);
+    Register(in[0]=R10,in[1]=R11,in[2]=R12,in[3]=R13,in[4]=R14,in[5]=R15,in[6]=R16,in[7]=R17,in[8]=R18,in[9]=R19,in[10]=R1a,in[11]=R1b,in[12]=R1c,in[13]=R1d,in[14]=R1e,in[15]=R1f,load=l1,out=reg1);
+    Register(in[0]=R20,in[1]=R21,in[2]=R22,in[3]=R23,in[4]=R24,in[5]=R25,in[6]=R26,in[7]=R27,in[8]=R28,in[9]=R29,in[10]=R2a,in[11]=R2b,in[12]=R2c,in[13]=R2d,in[14]=R2e,in[15]=R2f,load=l2,out=reg2);
+    Register(in[0]=R30,in[1]=R31,in[2]=R32,in[3]=R33,in[4]=R34,in[5]=R35,in[6]=R36,in[7]=R37,in[8]=R38,in[9]=R39,in[10]=R3a,in[11]=R3b,in[12]=R3c,in[13]=R3d,in[14]=R3e,in[15]=R3f,load=l3,out=reg3);
+
+    Register(in[0]=R40,in[1]=R41,in[2]=R42,in[3]=R43,in[4]=R44,in[5]=R45,in[6]=R46,in[7]=R47,in[8]=R48,in[9]=R49,in[10]=R4a,in[11]=R4b,in[12]=R4c,in[13]=R4d,in[14]=R4e,in[15]=R4f,load=l4,out=reg4);
+    Register(in[0]=R50,in[1]=R51,in[2]=R52,in[3]=R53,in[4]=R54,in[5]=R55,in[6]=R56,in[7]=R57,in[8]=R58,in[9]=R59,in[10]=R5a,in[11]=R5b,in[12]=R5c,in[13]=R5d,in[14]=R5e,in[15]=R5f,load=l5,out=reg5);
+    Register(in[0]=R60,in[1]=R61,in[2]=R62,in[3]=R63,in[4]=R64,in[5]=R65,in[6]=R66,in[7]=R67,in[8]=R68,in[9]=R69,in[10]=R6a,in[11]=R6b,in[12]=R6c,in[13]=R6d,in[14]=R6e,in[15]=R6f,load=l6,out=reg6);
+    Register(in[0]=R70,in[1]=R71,in[2]=R72,in[3]=R73,in[4]=R74,in[5]=R75,in[6]=R76,in[7]=R77,in[8]=R78,in[9]=R79,in[10]=R7a,in[11]=R7b,in[12]=R7c,in[13]=R7d,in[14]=R7e,in[15]=R7f,load=l7,out=reg7);
+
+    //Build the selector;
+    Mux8Way16(a=reg0,b=reg1,c=reg2,d=reg3,e=reg4,f=reg5,g=reg6,h=reg7,sel=address,out=out);
+    
+}
